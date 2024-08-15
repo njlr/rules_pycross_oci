@@ -1,0 +1,78 @@
+load("@aspect_rules_py//py:defs.bzl", "py_binary")
+load("@rules_pycross//pycross:defs.bzl", "pycross_poetry_lock_model", "pycross_lock_file")
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@rules_pkg//:mappings.bzl", "strip_prefix")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_tarball")
+load("@rules_pkg//:pkg.bzl", "pkg_tar")
+
+py_binary(
+  name = "cowapp",
+  main = "main.py",
+  srcs = [
+    "__init__.py",
+    "main.py",
+  ],
+  deps = [
+    "@cowapp_lock_repo//:cowsay",
+    "@cowapp_lock_repo//:numpy",
+  ],
+)
+
+pycross_poetry_lock_model(
+  name = "poetry_lock_model",
+  project_file = "pyproject.toml",
+  lock_file = "poetry.lock",
+)
+
+pycross_lock_file(
+  name = "poetry",
+  out = "poetry_lock.bzl",
+  lock_model_file = ":poetry_lock_model",
+  target_environments = [
+    "//:python_linux_x86_64",
+    "//:python_darwin_x86_64",
+    "//:python_darwin_arm64",
+  ],
+)
+
+pkg_tar(
+  name = "cowapp_files",
+  srcs = [
+    ":cowapp",
+  ],
+  strip_prefix = strip_prefix.from_pkg("."),
+  include_runfiles = True,
+)
+
+oci_image(
+  name = "image",
+  base = "@ubuntu_24_04",
+  entrypoint = "entrypoint.txt",
+  tars = [
+    ":cowapp_files",
+  ],
+)
+
+oci_tarball(
+  name = "tarball",
+  image = ":image",
+  repo_tags = [
+    "bazel/cowapp:latest",
+  ],
+)
+
+platform_transition_filegroup(
+  name = "image_linux_x86_64",
+  srcs = [
+    ":image",
+  ],
+  target_platform = "//:linux_x86_64",
+)
+
+oci_tarball(
+  name = "tarball_linux_x86_64",
+  image = ":image_linux_x86_64",
+  repo_tags = [
+    "bazel/cowapp_linux_x86_64:latest",
+  ],
+)
