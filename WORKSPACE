@@ -47,7 +47,7 @@ oci_pull(
   image = "ubuntu:24.04",
   platforms = [
     "linux/amd64",
-    "linux/arm64",
+    "linux/arm64/v8",
   ],
 )
 
@@ -81,11 +81,9 @@ http_archive(
   url = "https://github.com/bazelbuild/rules_python/releases/download/0.33.0/rules_python-0.33.0.tar.gz",
 )
 
-load("@rules_python//python:repositories.bzl", "py_repositories")
+load("@rules_python//python:repositories.bzl", "py_repositories", "python_register_multi_toolchains")
 
 py_repositories()
-
-load("@rules_python//python:repositories.bzl", "python_register_multi_toolchains")
 
 
 

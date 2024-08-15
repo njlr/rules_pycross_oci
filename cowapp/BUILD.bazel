@@ -53,14 +53,6 @@ oci_image(
   ],
 )
 
-oci_tarball(
-  name = "tarball",
-  image = ":image",
-  repo_tags = [
-    "bazel/cowapp:latest",
-  ],
-)
-
 platform_transition_filegroup(
   name = "image_linux_x86_64",
   srcs = [
