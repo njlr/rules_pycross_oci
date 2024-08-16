@@ -1,4 +1,4 @@
-load("@aspect_rules_py//py:defs.bzl", "py_binary")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_pytest_main", "py_test")
 load("@rules_pycross//pycross:defs.bzl", "pycross_poetry_lock_model", "pycross_lock_file")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@rules_pkg//:mappings.bzl", "strip_prefix")
@@ -14,10 +14,26 @@ py_binary(
     "main.py",
   ],
   deps = [
-    # "@cowapp_lock_repo//:cowsay",
-    # "@cowapp_lock_repo//:numpy",
     requirement("cowsay"),
     requirement("numpy"),
+  ],
+)
+
+py_pytest_main(
+  name = "test_main",
+)
+
+py_test(
+  name = "tests",
+  main = ":test_main.py",
+  srcs = [
+    ":test_main.py",
+  ] + glob([
+    "tests/*.py",
+  ]),
+  deps = [
+    ":test_main",
+    requirement("pytest"),
   ],
 )
 
