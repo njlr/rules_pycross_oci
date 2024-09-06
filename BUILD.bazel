@@ -42,29 +42,27 @@ platform(
   visibility = [ "//visibility:public" ],
 )
 
-PYTHON_VERSION = "3.10.11"
-
 pycross_target_environment(
-  name = "python_darwin_x86_64",
-  abis = ["cp311"],
+  name = "python_3_12_darwin_x86_64",
+  abis = ["cp312"],
   platforms = ["macosx_12_0_x86_64"],
   python_compatible_with = _darwin_x86_64,
-  version = PYTHON_VERSION,
+  version = "3.12.4",
   visibility = [ "//visibility:public" ],
 )
 
 pycross_target_environment(
-  name = "python_darwin_arm64",
-  abis = ["cp311"],
+  name = "python_3_12_darwin_arm64",
+  abis = ["cp312"],
   platforms = ["macosx_12_0_arm64"],
   python_compatible_with = _darwin_arm64,
-  version = PYTHON_VERSION,
+  version = "3.12.4",
   visibility = [ "//visibility:public" ],
 )
 
 pycross_target_environment(
-  name = "python_linux_x86_64",
-  abis = ["cp311"],
+  name = "python_3_12_linux_x86_64",
+  abis = ["cp312"],
   platforms = [
     "linux_x86_64",
     "manylinux2014_x86_64",
@@ -73,13 +71,13 @@ pycross_target_environment(
     for i in range(17, 25)
   ],
   python_compatible_with = _linux_x86_64,
-  version = PYTHON_VERSION,
+  version = "3.12.4",
   visibility = [ "//visibility:public" ],
 )
 
 pycross_target_environment(
-  name = "python_linux_arm64",
-  abis = ["cp311"],
+  name = "python_3_12_linux_arm64",
+  abis = ["cp312"],
   platforms = [
     "linux_aarch64",
     "manylinux2014_aarch64",
@@ -88,6 +86,6 @@ pycross_target_environment(
     for i in range(17, 25)
   ],
   python_compatible_with = _linux_arm64,
-  version = PYTHON_VERSION,
+  version = "3.12.4",
   visibility = [ "//visibility:public" ],
 )
