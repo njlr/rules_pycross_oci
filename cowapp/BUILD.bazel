@@ -33,6 +33,7 @@ pycross_lock_file(
   lock_model_file = ":poetry_lock_model",
   target_environments = [
     "//:python_linux_x86_64",
+    "//:python_linux_arm64",
     "//:python_darwin_x86_64",
     "//:python_darwin_arm64",
   ],
@@ -50,7 +51,7 @@ pkg_tar(
 oci_image(
   name = "image",
   base = "@ubuntu_24_04",
-  entrypoint = "entrypoint.txt",
+  cmd = "cmd.txt",
   tars = [
     ":cowapp_files",
   ],
@@ -64,10 +65,26 @@ platform_transition_filegroup(
   target_platform = "//:linux_x86_64",
 )
 
+platform_transition_filegroup(
+  name = "image_linux_arm64",
+  srcs = [
+    ":image",
+  ],
+  target_platform = "//:linux_arm64",
+)
+
 oci_tarball(
   name = "tarball_linux_x86_64",
   image = ":image_linux_x86_64",
   repo_tags = [
     "bazel/cowapp_linux_x86_64:latest",
+  ],
+)
+
+oci_tarball(
+  name = "tarball_linux_arm64",
+  image = ":image_linux_arm64",
+  repo_tags = [
+    "bazel/cowapp_linux_arm64:latest",
   ],
 )
