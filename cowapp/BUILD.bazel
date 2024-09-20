@@ -14,10 +14,9 @@ py_binary(
     "main.py",
   ],
   deps = [
-    # "@cowapp_lock_repo//:cowsay",
-    # "@cowapp_lock_repo//:numpy",
     requirement("cowsay"),
     requirement("numpy"),
+    requirement("pyspark"),
   ],
 )
 

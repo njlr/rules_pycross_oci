@@ -9,6 +9,7 @@ readme = "README.md"
 python = "3.10.11"
 cowsay = "^6.1"
 numpy = "^2.0.1"
+pyspark = "^3.5.2"
 
 [build-system]
 requires = ["poetry-core"]
