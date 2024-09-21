@@ -18,8 +18,6 @@ load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 bazel_skylib_workspace()
 
 # bazel_lib
-load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
-
 http_archive(
     name = "aspect_bazel_lib",
     sha256 = "688354ee6beeba7194243d73eb0992b9a12e8edeeeec5b6544f4b531a3112237",
@@ -36,6 +34,8 @@ aspect_bazel_lib_dependencies()
 # Register bazel-lib toolchains
 
 aspect_bazel_lib_register_toolchains()
+
+
 
 
 # rules_oci
@@ -151,7 +151,7 @@ load("@rules_pycross//pycross:repositories.bzl", "rules_pycross_dependencies")
 
 rules_pycross_dependencies(python_interpreter)
 
-load("@rules_pycross//pycross:workspace.bzl", "lock_repo_model_poetry", "pycross_lock_repo", "pycross_register_for_python_toolchains")
+load("@rules_pycross//pycross:workspace.bzl", "pycross_lock_file_repo", "pycross_register_for_python_toolchains")
 
 pycross_register_for_python_toolchains(
   name = "pycross_environments",
@@ -163,17 +163,11 @@ pycross_register_for_python_toolchains(
   python_toolchains_repo = "@python",
 )
 
-load("@pycross_environments//:defs.bzl", pycross_environments = "environments")
-
-pycross_lock_repo(
+pycross_lock_file_repo(
   name = "cowapp_lock_repo",
-  lock_model = lock_repo_model_poetry(
-    lock_file = "@//cowapp:poetry.lock",
-    project_file = "@//cowapp:pyproject.toml",
-  ),
-  target_environments = pycross_environments,
+  lock_file = "//cowapp:poetry_lock.bzl",
 )
 
-load("@cowapp_lock_repo//:defs.bzl", cowapp_install_deps = "install_deps")
+load("@cowapp_lock_repo//:requirements.bzl", cowapp_install_deps = "install_deps")
 
 cowapp_install_deps()

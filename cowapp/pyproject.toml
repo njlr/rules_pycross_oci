@@ -10,6 +10,9 @@ python = "3.10.11"
 cowsay = "^6.1"
 numpy = "^2.0.1"
 pyspark = "^3.5.2"
+setuptools = "^75.1.0"
+wheel = "^0.44.0"
+meson-python = "^0.16.0"
 
 [build-system]
 requires = ["poetry-core"]
