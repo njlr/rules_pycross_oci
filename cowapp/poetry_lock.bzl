@@ -7,11 +7,11 @@ load("@rules_pycross//pycross:defs.bzl", "pycross_wheel_build", "pycross_wheel_l
 
 PINS = {
     "cowsay": "cowsay@6.1",
-    "meson-python": "meson-python@0.16.0",
-    "numpy": "numpy@2.1.1",
-    "pyspark": "pyspark@3.5.2",
-    "setuptools": "setuptools@75.1.0",
-    "wheel": "wheel@0.44.0",
+    "meson-python": "meson-python@0.13.1",
+    "numpy": "numpy@1.26.4",
+    "pyspark": "pyspark@3.5.3",
+    "setuptools": "setuptools@68.2.2",
+    "wheel": "wheel@0.41.3",
 }
 
 # buildifier: disable=unnamed-macro
@@ -75,63 +75,62 @@ def targets():
     )
 
     native.alias(
-        name = "_wheel_meson@1.5.2",
-        actual = "@poetry_wheel_meson_1.5.2_py3_none_any//file",
+        name = "_wheel_meson@1.6.0",
+        actual = "@poetry_wheel_meson_1.6.0_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "meson@1.5.2",
-        wheel = ":_wheel_meson@1.5.2",
+        name = "meson@1.6.0",
+        wheel = ":_wheel_meson@1.6.0",
     )
 
-    _meson_python_0_16_0_deps = [
-        ":meson@1.5.2",
-        ":packaging@24.1",
-        ":pyproject-metadata@0.8.0",
-        ":tomli@2.0.1",
+    _meson_python_0_13_1_deps = [
+        ":meson@1.6.0",
+        ":pyproject-metadata@0.9.0",
+        ":tomli@2.2.1",
     ]
 
     native.alias(
-        name = "_wheel_meson-python@0.16.0",
-        actual = "@poetry_wheel_meson_python_0.16.0_py3_none_any//file",
+        name = "_wheel_meson-python@0.13.1",
+        actual = "@poetry_wheel_meson_python_0.13.1_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "meson-python@0.16.0",
-        deps = _meson_python_0_16_0_deps,
-        wheel = ":_wheel_meson-python@0.16.0",
+        name = "meson-python@0.13.1",
+        deps = _meson_python_0_13_1_deps,
+        wheel = ":_wheel_meson-python@0.13.1",
     )
 
     native.alias(
-        name = "_sdist_numpy@2.1.1",
-        actual = "@poetry_sdist_numpy_2.1.1//file",
+        name = "_sdist_numpy@1.26.4",
+        actual = "@poetry_sdist_numpy_1.26.4//file",
     )
 
     pycross_wheel_build(
-        name = "_build_numpy@2.1.1",
-        sdist = ":_sdist_numpy@2.1.1",
+        name = "_build_numpy@1.26.4",
+        sdist = ":_sdist_numpy@1.26.4",
         target_environment = _target,
         tags = ["manual"],
     )
 
     native.alias(
-        name = "_wheel_numpy@2.1.1",
-        actual = ":_build_numpy@2.1.1",
+        name = "_wheel_numpy@1.26.4",
+        actual = ":_build_numpy@1.26.4",
     )
 
     pycross_wheel_library(
-        name = "numpy@2.1.1",
-        wheel = ":_wheel_numpy@2.1.1",
+        name = "numpy@1.26.4",
+        wheel = ":_wheel_numpy@1.26.4",
     )
 
     native.alias(
-        name = "_wheel_packaging@24.1",
-        actual = "@poetry_wheel_packaging_24.1_py3_none_any//file",
+        name = "_wheel_packaging@24.2",
+        actual = "@poetry_wheel_packaging_24.2_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "packaging@24.1",
-        wheel = ":_wheel_packaging@24.1",
+        name = "packaging@24.2",
+        wheel = ":_wheel_packaging@24.2",
     )
 
     native.alias(
@@ -144,83 +143,83 @@ def targets():
         wheel = ":_wheel_py4j@0.10.9.7",
     )
 
-    _pyproject_metadata_0_8_0_deps = [
-        ":packaging@24.1",
+    _pyproject_metadata_0_9_0_deps = [
+        ":packaging@24.2",
     ]
 
     native.alias(
-        name = "_wheel_pyproject-metadata@0.8.0",
-        actual = "@poetry_wheel_pyproject_metadata_0.8.0_py3_none_any//file",
+        name = "_wheel_pyproject-metadata@0.9.0",
+        actual = "@poetry_wheel_pyproject_metadata_0.9.0_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "pyproject-metadata@0.8.0",
-        deps = _pyproject_metadata_0_8_0_deps,
-        wheel = ":_wheel_pyproject-metadata@0.8.0",
+        name = "pyproject-metadata@0.9.0",
+        deps = _pyproject_metadata_0_9_0_deps,
+        wheel = ":_wheel_pyproject-metadata@0.9.0",
     )
 
-    _pyspark_3_5_2_deps = [
+    _pyspark_3_5_3_deps = [
         ":py4j@0.10.9.7",
     ]
 
     native.alias(
-        name = "_sdist_pyspark@3.5.2",
-        actual = "@poetry_sdist_pyspark_3.5.2//file",
+        name = "_sdist_pyspark@3.5.3",
+        actual = "@poetry_sdist_pyspark_3.5.3//file",
     )
 
-    _pyspark_3_5_2_build_deps = [
-        ":meson-python@0.16.0",
-        ":setuptools@75.1.0",
-        ":wheel@0.44.0",
+    _pyspark_3_5_3_build_deps = [
+        ":meson-python@0.13.1",
+        ":setuptools@68.2.2",
+        ":wheel@0.41.3",
     ]
 
     pycross_wheel_build(
-        name = "_build_pyspark@3.5.2",
-        sdist = ":_sdist_pyspark@3.5.2",
+        name = "_build_pyspark@3.5.3",
+        sdist = ":_sdist_pyspark@3.5.3",
         target_environment = _target,
-        deps = _pyspark_3_5_2_deps + _pyspark_3_5_2_build_deps,
+        deps = _pyspark_3_5_3_deps + _pyspark_3_5_3_build_deps,
         tags = ["manual"],
     )
 
     native.alias(
-        name = "_wheel_pyspark@3.5.2",
-        actual = ":_build_pyspark@3.5.2",
+        name = "_wheel_pyspark@3.5.3",
+        actual = ":_build_pyspark@3.5.3",
     )
 
     pycross_wheel_library(
-        name = "pyspark@3.5.2",
-        deps = _pyspark_3_5_2_deps,
-        wheel = ":_wheel_pyspark@3.5.2",
+        name = "pyspark@3.5.3",
+        deps = _pyspark_3_5_3_deps,
+        wheel = ":_wheel_pyspark@3.5.3",
     )
 
     native.alias(
-        name = "_wheel_setuptools@75.1.0",
-        actual = "@poetry_wheel_setuptools_75.1.0_py3_none_any//file",
+        name = "_wheel_setuptools@68.2.2",
+        actual = "@poetry_wheel_setuptools_68.2.2_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "setuptools@75.1.0",
-        wheel = ":_wheel_setuptools@75.1.0",
+        name = "setuptools@68.2.2",
+        wheel = ":_wheel_setuptools@68.2.2",
     )
 
     native.alias(
-        name = "_wheel_tomli@2.0.1",
-        actual = "@poetry_wheel_tomli_2.0.1_py3_none_any//file",
+        name = "_wheel_tomli@2.2.1",
+        actual = "@poetry_wheel_tomli_2.2.1_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "tomli@2.0.1",
-        wheel = ":_wheel_tomli@2.0.1",
+        name = "tomli@2.2.1",
+        wheel = ":_wheel_tomli@2.2.1",
     )
 
     native.alias(
-        name = "_wheel_wheel@0.44.0",
-        actual = "@poetry_wheel_wheel_0.44.0_py3_none_any//file",
+        name = "_wheel_wheel@0.41.3",
+        actual = "@poetry_wheel_wheel_0.41.3_py3_none_any//file",
     )
 
     pycross_wheel_library(
-        name = "wheel@0.44.0",
-        wheel = ":_wheel_wheel@0.44.0",
+        name = "wheel@0.41.3",
+        wheel = ":_wheel_wheel@0.41.3",
     )
 
 # buildifier: disable=unnamed-macro
@@ -229,20 +228,20 @@ def repositories():
 
     maybe(
         pypi_file,
-        name = "poetry_sdist_numpy_2.1.1",
+        name = "poetry_sdist_numpy_1.26.4",
         package_name = "numpy",
-        package_version = "2.1.1",
-        filename = "numpy-2.1.1.tar.gz",
-        sha256 = "d0cf7d55b1051387807405b3898efafa862997b4cba8aa5dbe657be794afeafd",
+        package_version = "1.26.4",
+        filename = "numpy-1.26.4.tar.gz",
+        sha256 = "2a02aba9ed12e4ac4eb3ea9421c420301a0c6460d9830d74a9df87efa4912010",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_sdist_pyspark_3.5.2",
+        name = "poetry_sdist_pyspark_3.5.3",
         package_name = "pyspark",
-        package_version = "3.5.2",
-        filename = "pyspark-3.5.2.tar.gz",
-        sha256 = "bbb36eba09fa24e86e0923d7e7a986041b90c714e11c6aa976f9791fe9edde5e",
+        package_version = "3.5.3",
+        filename = "pyspark-3.5.3.tar.gz",
+        sha256 = "68b7cc0c0c570a7d8644f49f40d2da8709b01d30c9126cc8cf93b4f84f3d9747",
     )
 
     maybe(
@@ -256,29 +255,29 @@ def repositories():
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_meson_1.5.2_py3_none_any",
+        name = "poetry_wheel_meson_1.6.0_py3_none_any",
         package_name = "meson",
-        package_version = "1.5.2",
-        filename = "meson-1.5.2-py3-none-any.whl",
-        sha256 = "77706e2368a00d789c097632ccf4fc39251fba56d03e1e1b262559a3c7a08f5b",
+        package_version = "1.6.0",
+        filename = "meson-1.6.0-py3-none-any.whl",
+        sha256 = "234a45f9206c6ee33b473ec1baaef359d20c0b89a71871d58c65a6db6d98fe74",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_meson_python_0.16.0_py3_none_any",
+        name = "poetry_wheel_meson_python_0.13.1_py3_none_any",
         package_name = "meson-python",
-        package_version = "0.16.0",
-        filename = "meson_python-0.16.0-py3-none-any.whl",
-        sha256 = "842dc9f5dc29e55fc769ff1b6fe328412fe6c870220fc321060a1d2d395e69e8",
+        package_version = "0.13.1",
+        filename = "meson_python-0.13.1-py3-none-any.whl",
+        sha256 = "e33ea3efbadecc15768c205d03b905c7b3bf72afae1e1ebd84b438c4a3ed3393",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_packaging_24.1_py3_none_any",
+        name = "poetry_wheel_packaging_24.2_py3_none_any",
         package_name = "packaging",
-        package_version = "24.1",
-        filename = "packaging-24.1-py3-none-any.whl",
-        sha256 = "5b8f2217dbdbd2f7f384c41c628544e6d52f2d0f53c6d0c3ea61aa5d1d7ff124",
+        package_version = "24.2",
+        filename = "packaging-24.2-py3-none-any.whl",
+        sha256 = "09abb1bccd265c01f4a3aa3f7a7db064b36514d2cba19a2f694fe6150451a759",
     )
 
     maybe(
@@ -292,36 +291,36 @@ def repositories():
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_pyproject_metadata_0.8.0_py3_none_any",
+        name = "poetry_wheel_pyproject_metadata_0.9.0_py3_none_any",
         package_name = "pyproject-metadata",
-        package_version = "0.8.0",
-        filename = "pyproject_metadata-0.8.0-py3-none-any.whl",
-        sha256 = "ad858d448e1d3a1fb408ac5bac9ea7743e7a8bbb472f2693aaa334d2db42f526",
+        package_version = "0.9.0",
+        filename = "pyproject_metadata-0.9.0-py3-none-any.whl",
+        sha256 = "fc862aab066a2e87734333293b0af5845fe8ac6cb69c451a41551001e923be0b",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_setuptools_75.1.0_py3_none_any",
+        name = "poetry_wheel_setuptools_68.2.2_py3_none_any",
         package_name = "setuptools",
-        package_version = "75.1.0",
-        filename = "setuptools-75.1.0-py3-none-any.whl",
-        sha256 = "35ab7fd3bcd95e6b7fd704e4a1539513edad446c097797f2985e0e4b960772f2",
+        package_version = "68.2.2",
+        filename = "setuptools-68.2.2-py3-none-any.whl",
+        sha256 = "b454a35605876da60632df1a60f736524eb73cc47bbc9f3f1ef1b644de74fd2a",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_tomli_2.0.1_py3_none_any",
+        name = "poetry_wheel_tomli_2.2.1_py3_none_any",
         package_name = "tomli",
-        package_version = "2.0.1",
-        filename = "tomli-2.0.1-py3-none-any.whl",
-        sha256 = "939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc",
+        package_version = "2.2.1",
+        filename = "tomli-2.2.1-py3-none-any.whl",
+        sha256 = "cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc",
     )
 
     maybe(
         pypi_file,
-        name = "poetry_wheel_wheel_0.44.0_py3_none_any",
+        name = "poetry_wheel_wheel_0.41.3_py3_none_any",
         package_name = "wheel",
-        package_version = "0.44.0",
-        filename = "wheel-0.44.0-py3-none-any.whl",
-        sha256 = "2376a90c98cc337d18623527a97c31797bd02bad0033d41547043a1cbfbe448f",
+        package_version = "0.41.3",
+        filename = "wheel-0.41.3-py3-none-any.whl",
+        sha256 = "488609bc63a29322326e05560731bf7bfea8e48ad646e1f5e40d366607de0942",
     )
