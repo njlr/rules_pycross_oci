@@ -5,11 +5,16 @@ on:
   merge_group:
   workflow_dispatch:
   workflow_call:
+    inputs:
+      environment:
+        required: true
+        type: string
 
 jobs:
 
   ci:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     steps:
       - uses: actions/checkout@v3
