@@ -1,0 +1,68 @@
+load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
+load("@aspect_rules_py//py:defs.bzl", "py_binary", "py_image_layer")
+load("@torchapp_pypi//:requirements.bzl", "requirement")
+load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
+
+py_binary(
+    name = "torchapp",
+    srcs = [
+        "__init__.py",
+        "main.py",
+    ],
+    main = "main.py",
+    python_version = "3.14.0",
+    deps = [
+        requirement("torch"),
+        requirement("numpy"),
+    ],
+)
+
+py_image_layer(
+    name = "layers",
+    binary = ":torchapp",
+    platform = select({
+        "@platforms//cpu:arm64": "//:linux_arm64",
+        "@platforms//cpu:x86_64": "//:linux_x86_64",
+    }),
+)
+
+oci_image(
+    name = "image",
+    base = "@ubuntu_24_04",
+    entrypoint = ["/torchapp/torchapp"],
+    tars = [
+        ":layers",
+    ],
+)
+
+platform_transition_filegroup(
+    name = "image_linux_x86_64",
+    srcs = [
+        ":image",
+    ],
+    target_platform = "//:linux_x86_64",
+)
+
+platform_transition_filegroup(
+    name = "image_linux_arm64",
+    srcs = [
+        ":image",
+    ],
+    target_platform = "//:linux_arm64",
+)
+
+oci_load(
+    name = "tarball_linux_x86_64",
+    image = ":image_linux_x86_64",
+    repo_tags = [
+        "bazel/torchapp_linux_x86_64:latest",
+    ],
+)
+
+oci_load(
+    name = "tarball_linux_arm64",
+    image = ":image_linux_arm64",
+    repo_tags = [
+        "bazel/torchapp_linux_arm64:latest",
+    ],
+)

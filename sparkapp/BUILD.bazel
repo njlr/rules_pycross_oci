@@ -29,6 +29,7 @@ py_test(
         requirement("pyspark"),
         requirement("pytest"),
     ],
+    size = "small",
 )
 
 tar(

@@ -17,3 +17,10 @@ Demonstrates:
 
 Demonstrates
  - `apache-airflow` (circular dependencies)
+
+## torchapp
+
+Demonstrates:
+ - `torch` (tricky one!)
+
+Also uses a different version of the interpreter to the other examples.
