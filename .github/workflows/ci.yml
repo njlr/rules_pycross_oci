@@ -13,6 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Configure Bazel
+        run: |
+          echo "common --remote_header=x-buildbuddy-api-key=${{ secrets.BUILDBUDDY_ORG_API_KEY }}" >> user.bazelrc
+
       - name: Build and Test
         run: |
           bazel test --config=ci //...

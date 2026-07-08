@@ -4,6 +4,14 @@ common --noslim_profile
 common --experimental_profile_include_primary_output
 
 common:ci --lockfile_mode=error
+common:ci --remote_cache=grpcs://remote.buildbuddy.io
+common:ci --remote_timeout=10m
+common:ci --remote_local_fallback
 
 build:ci --remote_download_minimal
 build:ci --remote_cache_compression
+build:ci --bes_results_url=https://app.buildbuddy.io/invocation/
+build:ci --bes_backend=grpcs://remote.buildbuddy.io
+
+# user settings
+try-import %workspace%/user.bazelrc
