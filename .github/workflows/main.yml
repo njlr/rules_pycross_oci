@@ -8,11 +8,11 @@ on:
       - master
 
 jobs:
-  main:
+  main:  
     permissions:
       id-token: write
       contents: read
     uses: ./.github/workflows/ci.yml
     with:
-      environment: "main"
+      environment: main
     secrets: inherit
