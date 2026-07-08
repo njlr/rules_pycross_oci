@@ -1,0 +1,9 @@
+common --incompatible_strict_action_env
+common --sandbox_default_allow_network=false
+common --noslim_profile
+common --experimental_profile_include_primary_output
+
+common:ci --lockfile_mode=error
+
+build:ci --remote_download_minimal
+build:ci --remote_cache_compression
