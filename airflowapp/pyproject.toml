@@ -1,0 +1,19 @@
+[project]
+name = "airflowapp"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10.0, <3.11"
+dependencies = [
+    "apache-airflow==2.10.3"
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "wheel>=0.47.0",
+    "setuptools>=82.0.1"
+]

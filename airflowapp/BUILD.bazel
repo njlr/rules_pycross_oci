@@ -1,11 +1,11 @@
+load("@airflowapp_pypi//:requirements.bzl", "requirement")
 load("@aspect_bazel_lib//lib:transitions.bzl", "platform_transition_filegroup")
 load("@aspect_rules_py//py:defs.bzl", "py_binary")
-load("@cowapp_pypi//:requirements.bzl", "requirement")
 load("@rules_oci//oci:defs.bzl", "oci_image", "oci_load")
 load("@tar.bzl//:tar.bzl", "mutate", "tar")
 
 py_binary(
-    name = "cowapp",
+    name = "airflowapp",
     srcs = [
         "__init__.py",
         "main.py",
@@ -13,15 +13,14 @@ py_binary(
     main = "main.py",
     python_version = "3.10.6",
     deps = [
-        requirement("cowsay"),
-        requirement("numpy"),
+        requirement("apache-airflow"),
     ],
 )
 
 tar(
-    name = "cowapp_files",
+    name = "airflowapp_files",
     srcs = [
-        ":cowapp",
+        ":airflowapp",
     ],
     mutate = mutate(
         strip_prefix = package_name(),
@@ -31,9 +30,9 @@ tar(
 oci_image(
     name = "image",
     base = "@ubuntu_24_04",
-    entrypoint = ["/cowapp"],
+    entrypoint = ["/airflowapp"],
     tars = [
-        ":cowapp_files",
+        ":airflowapp_files",
     ],
 )
 
@@ -57,7 +56,7 @@ oci_load(
     name = "tarball_linux_x86_64",
     image = ":image_linux_x86_64",
     repo_tags = [
-        "bazel/cowapp_linux_x86_64:latest",
+        "bazel/airflowapp_linux_x86_64:latest",
     ],
 )
 
@@ -65,6 +64,6 @@ oci_load(
     name = "tarball_linux_arm64",
     image = ":image_linux_arm64",
     repo_tags = [
-        "bazel/cowapp_linux_arm64:latest",
+        "bazel/airflowapp_linux_arm64:latest",
     ],
 )
