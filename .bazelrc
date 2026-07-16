@@ -3,7 +3,10 @@ common --sandbox_default_allow_network=false
 common --noslim_profile
 common --experimental_profile_include_primary_output
 common --experimental_profile_include_target_label
+common --repo_env=DO_NOT_TRACK=1
 
+common:ci --execution_log_compact_file=%workspace%/bazel_compact_exec_log.binpb.zst
+common:ci --repo_env=DO_NOT_TRACK=1
 common:ci --lockfile_mode=error
 common:ci --remote_cache=grpcs://remote.buildbuddy.io
 common:ci --remote_timeout=10m

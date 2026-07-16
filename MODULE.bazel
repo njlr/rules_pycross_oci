@@ -68,8 +68,9 @@ uv.repo(
     dependency_groups = ["*"],
     workspace = "sparkapp_pypi",
 )
+use_repo(uv, "sparkapp_pypi")
 uv.workspace(
     name = "torchapp_pypi",
     lock_file = "//torchapp:uv.lock",
 )
-use_repo(uv, "airflowapp_pypi__build", "cowapp_pypi__build", "sparkapp_pypi", "sparkapp_pypi__build", "torchapp_pypi", "torchapp_pypi__build")
+use_repo(uv, "torchapp_pypi")

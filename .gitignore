@@ -2,3 +2,5 @@ bazel-*
 user.bazelrc
 
 *.venv
+
+/bazel_compact_exec_log.binpb.zst
